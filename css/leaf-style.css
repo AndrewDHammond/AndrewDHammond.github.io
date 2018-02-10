@@ -1,0 +1,43 @@
+body, html {
+  height: 100%;
+}
+
+.falling-particles {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 50%;
+  width: 100%;
+  max-width: 600px;
+  max-height: 450px;
+  -webkit-transform: translate(-50%, 0);
+          transform: translate(-50%, 0);
+  border: 20px solid #fff;
+  border-radius: 50px;
+  background: url(../images/mckeldin-fall.jpg) no-repeat center center;
+  background-size: cover;
+  overflow: hidden;
+}
+
+.particle-scene {
+  position: absolute;
+  top: 0;
+  left: 0;
+  bottom: 0;
+  width: 100%;
+  -webkit-transform-style: preserve-3d;
+          transform-style: preserve-3d;
+}
+.particle-scene div {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 20px;
+  height: 20px;
+  background: url(../images/leaf.svg) no-repeat;
+  background-size: 100%;
+  -webkit-transform-style: preserve-3d;
+          transform-style: preserve-3d;
+  -webkit-backface-visibility: visible;
+          backface-visibility: visible;
+}

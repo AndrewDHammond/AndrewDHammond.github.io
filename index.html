@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="en" >
+
+<head>
+  <meta charset="UTF-8">
+  <title>Falling Particles</title>
+	  <link rel="stylesheet" href="css/milligram.css"> <!--a style that just makes the form controls easier to look at :) -->
+      <link rel="stylesheet" href="css/leaf-style.css"> <!--a style sheet that defines all styling aspects for the LEAF option -->
+	  <link rel="stylesheet" href="css/snow-style.css"> <!--a style sheet that defines all styling aspects for the SNOW option -->
+</head>
+
+<body>
+<!-- START: Form controls for pause/resume and style selector -->
+<div id="general-container" style="top: 0px; left: 10px; position:absolute" >
+<table style="width: 345px; height:190px">
+<tr><td colspan=2 align=center>&nbsp;<button onclick="ReStartFunction()">ReStart</button>&nbsp;<button onclick="StopFunction()">Stop</button>&nbsp;<button id="pause" onclick="PauseFunction()">pause</button></td></tr>
+<tr><td align=right>Change Style:</td><td><select onchange="javascript: swapStyle(this.value)"><option  selected value='leaf-container'>Leaf</option><option value='snow-container'>Snow</option></select></td></tr>
+<tr><td align=right>Seconds Elapsed:</td><td id="timer"></td></tr>
+</table>
+</div>
+<!-- END: Form controls for pause/resume and style selector -->
+
+<!--START: javascript section for support of PAUSE/RESUME feature AND style toggle selector -->
+<script>
+var currentStyle="leaf-container";
+//pause and stop variables below will be toggled by user button actions and the value of those variables will effectively PAUSE or RESUME the action on the particle system.
+var pause=0;
+var count=0;
+var counter=setInterval(timer, 1000);   //the timer function below will fire every 1000 milliseconds (1 second).
+var stopped=0
+function timer()
+{
+  count=count+1;
+  document.getElementById("timer").innerHTML=count + " secs"; 
+}
+
+function StopFunction()
+{
+  clearInterval(counter);
+  window.count=0;
+  window.pause=0;
+  document.getElementById("pause").innerHTML="Pause"
+  window.stopped=1
+  document.getElementById("timer").innerHTML=count + " secs";
+}
+
+function ReStartFunction()
+{
+  if (counter)
+  {
+    clearInterval(counter);
+    window.pause=0;
+    window.count=0;
+    window.stopped=0
+    window.counter=setInterval(timer, 1000); 
+    count=count+1;
+    document.getElementById("pause").innerHTML="Pause"
+    document.getElementById("timer").innerHTML=count + " secs"; 
+  }
+}
+
+function PauseFunction()
+{
+  if (stopped==0)
+  { 
+    if (pause==0) 
+    {
+      clearInterval(counter);
+      document.getElementById("pause").innerHTML="Resume"
+      pause=1;
+      return;
+    }
+
+  if (pause==1) 
+    {
+      window.counter=setInterval(timer, 1000); 
+      document.getElementById("timer").innerHTML=count + " secs"; 
+      document.getElementById("pause").innerHTML="Pause"
+      pause=0;
+      return;
+    }
+  }
+  return;
+}
+//function to change from LEAF to SNOW and SNOW to LEAF (can be extended to additional styles)
+function swapStyle(newStyle) {
+	document.getElementById(currentStyle).style.visibility = "hidden";  //hide existing display
+	document.getElementById(newStyle).style.visibility = "visible";    //show new target display
+	currentStyle = newStyle;  //record NEW style as CURRENT style for next style swap by user.
+}
+
+</script>
+<!--END: javascript section for support of PAUSE/RESUME feature AND style toggle selector -->
+
+
+<canvas  style="top: 210px; visibility: hidden" id="snow-container"></canvas>  <!--canvas container for snow falling particles-->
+<div class="falling-particles" id="leaf-container" style="top: 210px" ></div>  <!--div container for leaf particle display-->
+  
+  
+    <script  src="js/leaf-style.js"></script>  <!--script to run the leaf particle engine. More complex motion, SVG particles, including rotation and wind.-->
+	<script  src="js/snow-style.js"></script>  <!--script to run the snow particle system. More simple motion, not SVG particles.-->
+
+
+</body>
+
+</html>

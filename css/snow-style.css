@@ -1,0 +1,20 @@
+/*Simple reset*/
+* {margin: 0; padding: 0;}
+
+canvas {
+	/*You can use any kind of background here.*/
+	  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 50%;
+  width: 100%;
+  max-width: 880px;
+  max-height: 880px;
+  -webkit-transform: translate(-50%, 0);
+          transform: translate(-50%, 0);
+  border: 20px solid #fff;
+  border-radius: 50px;
+  background: url(../images/mckeldin-snow.jpg) no-repeat center center;
+  background-size: cover;
+  overflow: hidden;
+}
